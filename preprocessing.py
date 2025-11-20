@@ -19,9 +19,6 @@ df = pd.read_csv(file_name, sep=";") # loads the file into a DataFrame
 print("Dataset loaded:", file_name)
 print(df.head()) # prints the first 5 rows to verify that the file loaded correctly
 
-print("\nMissing values:") # checks if there are empty cells
-print(df.isnull().sum())
-
 # creates another column for quality_binary based on the wine's quality and threshold
 df["quality_binary"] = (df["quality"] >= threshold).astype(int) 
 
