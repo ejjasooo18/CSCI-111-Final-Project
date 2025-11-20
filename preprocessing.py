@@ -7,16 +7,13 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-wine_choice = "red"     # options: "red", "white"
-threshold = 7           # Convert quality >= 7 into "Good"
 
-file_map = {
-    "red": "winequality-red.csv",
-    "white": "winequality-white.csv"
-}
+file_name = "winequality-red.csv"
+threshold = 7           # Threshold for separating "Good" and "Bad" wine according to
+                        # its quality
 
-df = pd.read_csv(file_map[wine_choice], sep=";")
-print("Dataset loaded:", file_map[wine_choice])
+df = pd.read_csv(file_name, sep=";")
+print("Dataset loaded:", file_name)
 print(df.head())
 
 print("\nMissing values:")
