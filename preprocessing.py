@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 
 
 file_name = "winequality-red.csv"
-threshold = 7           # Threshold for separating "Good" and "Bad" wine according to
-                        # its quality
+threshold = 7           # Threshold for separating "Good" and "Bad" wine according to its quality
+
 
 df = pd.read_csv(file_name, sep=";")
 print("Dataset loaded:", file_name)
