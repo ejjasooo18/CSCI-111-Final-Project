@@ -9,36 +9,47 @@ import matplotlib.pyplot as plt
 
 
 file_name = "winequality-red.csv"
-threshold = 7           # Threshold for separating "Good" and "Bad" wine according to its quality
+threshold = 7           
+# Threshold for separating "Good" and "Bad" wine according to its quality
+# Good (1) if quality >= 7; Bad (0) if quality < 7
+# This was done to simplify the prediction of the quality
 
-
-df = pd.read_csv(file_name, sep=";")
+# --- Preparing the dataset --- #
+df = pd.read_csv(file_name, sep=";") # loads the file into a DataFrame
 print("Dataset loaded:", file_name)
-print(df.head())
+print(df.head()) # prints the first 5 rows to verify that the file loaded correctly
 
-print("\nMissing values:")
+print("\nMissing values:") # checks if there are empty cells
 print(df.isnull().sum())
 
-df["quality_binary"] = (df["quality"] >= threshold).astype(int)
+# creates another column for quality_binary based on the wine's quality and threshold
+df["quality_binary"] = (df["quality"] >= threshold).astype(int) 
 
+# splitting data into X and y
+# X: features used to make predictions (Acidity, Sugar, pH, etc.)
+# y: data we want to predict (quality_binary) 
 X = df.drop(["quality", "quality_binary"], axis=1)
 y = df["quality_binary"]
 
+# splitting data into training (80%) and test (20%) sets
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
+# scaling the wine data in X so that they generally fall between -1 and 1.
+# this makes the model understand the data better.
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
+# prints the final shapes
 print("\nFinal Shapes:")
 print("X_train:", X_train_scaled.shape)
 print("X_test:", X_test_scaled.shape)
 print("y_train:", y_train.shape)
 print("y_test:", y_test.shape)
 
-# --- MODEL 1: Logistic Regression (The Baseline) ---
+# --- MODEL 1: Logistic Regression --- #
 print("\n--- Training Model 1: Logistic Regression ---")
 log_reg = LogisticRegression(random_state=42)
 log_reg.fit(X_train_scaled, y_train)
@@ -51,7 +62,7 @@ print("\nClassification Report (LogReg):")
 print(classification_report(y_test, y_pred_log))
 
 
-# --- MODEL 2: Random Forest (The Powerhouse) ---
+# --- MODEL 2: Random Forest --- #
 print("\n--- Training Model 2: Random Forest ---")
 # n_estimators=100 means we create 100 decision trees and average them
 rf_model = RandomForestClassifier(n_estimators=100, random_state=42) 
