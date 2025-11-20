@@ -51,12 +51,13 @@ print("y_test:", y_test.shape)
 
 # --- MODEL 1: Logistic Regression --- #
 print("\n--- Training Model 1: Logistic Regression ---")
-log_reg = LogisticRegression(random_state=42)
-log_reg.fit(X_train_scaled, y_train)
+log_reg = LogisticRegression(random_state=42)   # initializes the model
+log_reg.fit(X_train_scaled, y_train)    # model studies the data
 
-y_pred_log = log_reg.predict(X_test_scaled)
-acc_log = accuracy_score(y_test, y_pred_log)
+y_pred_log = log_reg.predict(X_test_scaled) # model predicts quality based on wine's features using Logistic Regression
+acc_log = accuracy_score(y_test, y_pred_log)    # gets the accuracy score
 
+# prints the results
 print(f"Logistic Regression Accuracy: {acc_log:.2%}")
 print("\nClassification Report (LogReg):")
 print(classification_report(y_test, y_pred_log))
@@ -65,33 +66,33 @@ print(classification_report(y_test, y_pred_log))
 # --- MODEL 2: Random Forest --- #
 print("\n--- Training Model 2: Random Forest ---")
 # n_estimators=100 means we create 100 decision trees and average them
-rf_model = RandomForestClassifier(n_estimators=100, random_state=42) 
-rf_model.fit(X_train_scaled, y_train)
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)    # initializes the model
+rf_model.fit(X_train_scaled, y_train)   # model studies the data
 
-y_pred_rf = rf_model.predict(X_test_scaled)
-acc_rf = accuracy_score(y_test, y_pred_rf)
+y_pred_rf = rf_model.predict(X_test_scaled) # model predicts quality based on wine's features using Random Forest
+acc_rf = accuracy_score(y_test, y_pred_rf)  # gets the accuracy score
 
+# prints the results
 print(f"Random Forest Accuracy: {acc_rf:.2%}")
 print("\nClassification Report (Random Forest):")
 print(classification_report(y_test, y_pred_rf))
 
 
 # --- VISUALIZATION: Confusion Matrix Comparison ---
-# (This generates the chart Member 3 needs for the slides)
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-# Plot Logistic Regression Matrix
+# plot Logistic Regression Matrix
 sns.heatmap(confusion_matrix(y_test, y_pred_log), annot=True, fmt='d', cmap='Blues', ax=axes[0])
 axes[0].set_title(f'Logistic Regression (Acc: {acc_log:.2f})')
 axes[0].set_xlabel('Predicted')
 axes[0].set_ylabel('Actual')
 
-# Plot Random Forest Matrix
+# plot Random Forest Matrix
 sns.heatmap(confusion_matrix(y_test, y_pred_rf), annot=True, fmt='d', cmap='Greens', ax=axes[1])
 axes[1].set_title(f'Random Forest (Acc: {acc_rf:.2f})')
 axes[1].set_xlabel('Predicted')
 axes[1].set_ylabel('Actual')
 
 plt.tight_layout()
-plt.show() # This will pop up a window with the charts
+plt.show() # this will pop up a window with the charts
