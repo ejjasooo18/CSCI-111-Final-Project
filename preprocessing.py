@@ -19,6 +19,20 @@ df = pd.read_csv(file_name, sep=";") # loads the file into a DataFrame
 print("Dataset loaded:", file_name)
 print(df.head()) # prints the first 5 rows to verify that the file loaded correctly
 
+''' Analyze the raw training data before training the models '''
+# Create a heatmap of the results
+plt.figure(figsize=(12, 8))
+sns.heatmap(df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Correlation Heatmap for Wine Quality Dataset")
+plt.show()
+
+# Create a histogram of all the different features
+df.hist(bins=20, figsize=(12, 10), edgecolor='black')
+plt.suptitle("Feature Distribution Histograms", fontsize=16)
+plt.tight_layout()
+plt.show()
+
+
 # creates another column for quality_binary based on the wine's quality and threshold
 df["quality_binary"] = (df["quality"] >= threshold).astype(int) 
 
