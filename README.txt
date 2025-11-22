@@ -18,3 +18,5 @@
 
     Confusion matrix is generated at the end of the program, report for precision, recall, 
     f1-score and support is printed onto the console at the end as well.
+
+    Note: Current graph must be closed to show the following ones.
